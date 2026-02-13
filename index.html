@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maritime Intelligence System 5.0 (MIS 5.0) | Future of Maritime</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0A2647;
+            --ocean: #144272;
+            --cyan: #205295;
+            --light: #2C74B3;
+            --white: #ffffff;
+            --gold: #FFD700;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 100%);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .wave-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .wave {
+            position: absolute;
+            width: 200%;
+            height: 200px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            animation: wave 8s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            top: 100px;
+            animation-delay: -2s;
+        }
+
+        .wave:nth-child(3) {
+            top: 200px;
+            animation-delay: -4s;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 38, 71, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: var(--light);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #FFD700, #FFF, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::before {
+            content: '⚓';
+            position: absolute;
+            left: -80px;
+            font-size: 3.5rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+        }
+
+        .hero h1::after {
+            content: '🌊';
+            position: absolute;
+            right: -80px;
+            font-size: 3.5rem;
+            animation: float 3s ease-in-out infinite reverse;
+            filter: drop-shadow(0 0 10px rgba(44, 116, 179, 0.5));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: var(--navy);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+            background: linear-gradient(45deg, #FFA500, #FFD700);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin-bottom: 5rem;
+        }
+
+        h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--gold);
+            margin: 1rem auto;
+        }
+
+        /* Ecosystem Cards */
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 30px rgba(44, 116, 179, 0.5);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        /* HEL Framework */
+        .hel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .hel-item {
+            background: linear-gradient(135deg, var(--ocean), var(--cyan));
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--light);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hel-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .hel-item h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Learning Modules */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .module-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .module-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .module-card h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .module-card button {
+            margin-top: 1rem;
+            background: var(--light);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .module-card button:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        #question {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--light);
+            padding: 1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        .option:hover {
+            background: var(--light);
+            transform: translateX(10px);
+        }
+
+        /* Gamification */
+        .gamification {
+            text-align: center;
+            background: linear-gradient(135deg, var(--ocean), var(--cyan));
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .stat:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+
+        /* References */
+        .ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .ref-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s;
+        }
+
+        .ref-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(5px);
+        }
+
+        .ref-card h4 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .ref-card a {
+            color: #FFD700;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            padding: 0.3rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .ref-card a:hover {
+            color: #FFF;
+            border-bottom: 2px solid #FFD700;
+            transform: translateX(5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 3px solid var(--gold);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #FFD700;
+            text-decoration: none;
+            display: block;
+            margin: 0.5rem 0;
+            opacity: 0.9;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: #FFF;
+            transform: translateX(5px);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Popup Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, var(--ocean), var(--navy));
+            margin: 5% auto;
+            padding: 3rem;
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close {
+            color: var(--gold);
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+            line-height: 1;
+        }
+
+        .close:hover {
+            transform: rotate(90deg);
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero h1::before,
+            .hero h1::after {
+                display: none;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="wave-bg">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Tentang MIS 5.0</a></li>
+            <li><a href="#ecosystem">Ekosistem</a></li>
+            <li><a href="#hel">HEL Framework</a></li>
+            <li><a href="#modules">Learning</a></li>
+            <li><a href="#feedback">Feedback & FAQ</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+            <li><a href="#references">Referensi</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Maritime Intelligence System 5.0 (MIS 5.0)</h1>
+            <p style="font-size: 1.5rem; margin-bottom: 2rem; opacity: 0.95; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">
+                <span style="color: #FFD700; font-weight: 600;">⚡</span> Transformasi Maritim Indonesia Menuju Era Human-AI Integration <span style="color: #FFD700; font-weight: 600;">⚡</span>
+            </p>
+            <button class="btn-primary" onclick="scrollToSection('about')">
+                <span style="font-size: 1.2rem;">🚀</span> Jelajahi Sistem
+            </button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container">
+        <h2>🌊 Tentang MIS 5.0</h2>
+        <div style="max-width: 900px; margin: 0 auto; text-align: left; font-size: 1.1rem; line-height: 1.9;">
+            <p style="margin-bottom: 1.5rem; text-align: center; font-size: 1.3rem;">
+                <strong>Maritime Intelligence System 5.0 (MIS 5.0)</strong> adalah blueprint transformasi maritim Indonesia yang mengintegrasikan teknologi AI, IoT, dan sistem cerdas dengan pendekatan <strong>Human-Centered</strong>.
+            </p>
+            
+            <div style="background: rgba(255, 255, 255, 0.08); padding: 2rem; border-radius: 15px; margin: 2rem 0; border-left: 4px solid var(--gold);">
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">🎯 Visi MIS 5.0</h3>
+                <p style="margin-bottom: 1rem;">Menjadikan Indonesia sebagai pusat inovasi maritim cerdas berbasis pengalaman manusia dan kecerdasan buatan yang terintegrasi, menciptakan ekosistem maritim yang sustainable, efficient, dan human-centric.</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.08); padding: 2rem; border-radius: 15px; margin: 2rem 0; border-left: 4px solid var(--cyan);">
+                <h3 style="color: #FFD700; margin-bottom: 1rem;">🚀 Misi MIS 5.0</h3>
+                <ul style="margin-left: 1.5rem; line-height: 2; color: #FFE066;">
+                    <li>Mengintegrasikan teknologi AI dan IoT dalam operasional pelabuhan dan kapal Indonesia</li>
+                    <li>Meningkatkan kompetensi SDM maritim melalui sistem pembelajaran holistik (HEL Framework)</li>
+                    <li>Membangun smart port dan smart ship infrastructure di seluruh nusantara</li>
+                    <li>Menciptakan standar nasional maritime intelligence yang dapat diadopsi regional ASEAN</li>
+                    <li>Mewujudkan kolaborasi harmonis antara manusia dan teknologi AI dalam ekosistem maritim</li>
+                </ul>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.08); padding: 2rem; border-radius: 15px; margin: 2rem 0; border-left: 4px solid var(--light);">
+                <h3 style="color: #FFD700; margin-bottom: 1rem;">💡 Filosofi Human-Centered Technology</h3>
+                <p style="margin-bottom: 1rem; color: #FFE066;">MIS 5.0 percaya bahwa masa depan maritim bukan tentang menggantikan manusia dengan mesin, melainkan tentang <strong>memberdayakan manusia</strong> dengan teknologi yang tepat. Teknologi AI, IoT, dan automation adalah tools untuk meningkatkan kapabilitas manusia, bukan substitusinya.</p>
+                <p style="color: #FFE066;">Setiap sistem yang kami kembangkan menempatkan pengalaman pengguna (seafarer, port operator, maritime professional) sebagai pusat desain, memastikan teknologi melayani kebutuhan manusia, bukan sebaliknya.</p>
+            </div>
+
+            <div style="background: rgba(255, 255, 255, 0.08); padding: 2rem; border-radius: 15px; margin: 2rem 0; border-left: 4px solid var(--gold);">
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">🌊 Konteks Indonesia sebagai Negara Maritim</h3>
+                <p style="margin-bottom: 1rem;">Indonesia memiliki 17,504 pulau dengan garis pantai terpanjang kedua di dunia (99,093 km). Lebih dari 90% perdagangan internasional Indonesia dilakukan melalui jalur laut. Dengan 246 pelabuhan yang tersebar di nusantara dan armada kapal yang massive, Indonesia membutuhkan sistem maritim yang:</p>
+                <ul style="margin-left: 1.5rem; line-height: 2;">
+                    <li><strong>Cerdas (Intelligent)</strong> - Mampu mengolah big data untuk decision making real-time</li>
+                    <li><strong>Terhubung (Connected)</strong> - Integrasi seamless antar pelabuhan, kapal, dan stakeholder</li>
+                    <li><strong>Berkelanjutan (Sustainable)</strong> - Ramah lingkungan dengan green port & green ship technology</li>
+                    <li><strong>Adaptif (Adaptive)</strong> - Mampu beradaptasi dengan perubahan teknologi dan kebutuhan industri</li>
+                    <li><strong>Inklusif (Inclusive)</strong> - Memberdayakan seluruh pelaku maritim dari Sabang sampai Merauke</li>
+                </ul>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, var(--ocean), var(--cyan)); border-radius: 15px;">
+                <h3 style="color: var(--gold); margin-bottom: 1rem;">📊 Target MIS 5.0 untuk Indonesia</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold; color: var(--gold);">246</div>
+                        <div>Pelabuhan Terdigitalisasi</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold; color: var(--gold);">100%</div>
+                        <div>AI-Powered Logistics</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold; color: var(--gold);">50%</div>
+                        <div>Pengurangan Emisi (2030)</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: bold; color: var(--gold);">10K+</div>
+                        <div>SDM Maritim Terlatih/Tahun</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Section -->
+    <section id="ecosystem" class="container">
+        <h2>🌐 Maritime 5.0 Ecosystem</h2>
+        <div class="ecosystem-grid">
+            <div class="card" onclick="openModal('Smart Port', 'Pelabuhan pintar dengan sistem otomasi penuh menggunakan teknologi AI-powered logistics, real-time cargo tracking berbasis IoT sensors, automated crane systems dengan computer vision, blockchain untuk dokumentasi dan keamanan supply chain, predictive maintenance untuk equipment, digital twin technology untuk simulasi operasional, dan integrasi platform NLE (National Logistics Ecosystem) yang menghubungkan seluruh stakeholder pelabuhan. Contoh implementasi: Pelabuhan Tanjung Priok dengan kapasitas 7.6 juta TEUs menggunakan automated container terminal dan AI untuk optimasi yard management.', 'https://www.trade.gov/market-intelligence/indonesia-infrastructure-smart-port-development')">
+                <div class="card-icon">🏗️</div>
+                <h3>Smart Port</h3>
+                <p>Pelabuhan otomatis dengan AI logistics</p>
+            </div>
+            <div class="card" onclick="openModal('Smart Ship', 'Kapal cerdas dengan autonomous navigation system menggunakan AI, sensor fusion (radar, lidar, camera, AIS), predictive maintenance berbasis machine learning untuk mencegah breakdown, fuel optimization algorithms yang dapat menghemat 10-30% konsumsi BBM, AI decision support system untuk route planning optimal, real-time weather integration, collision avoidance system otomatis, remote monitoring & control dari darat, dan cyber security layer untuk proteksi dari hacking. Teknologi ini sudah digunakan di kapal-kapal container modern dan sedang dikembangkan untuk implementasi di armada Indonesia.', 'https://maridec.com/smart-ship-technology-transforming-maritime-operations-with-innovation/')">
+                <div class="card-icon">🚢</div>
+                <h3>Smart Ship</h3>
+                <p>Kapal autonomous & prediktif</p>
+            </div>
+            <div class="card" onclick="openModal('AI Ocean', 'Monitoring laut menggunakan AI untuk analisis ekosistem laut real-time dengan underwater sensors dan satellite imagery, prediksi cuaca maritim dengan accuracy tinggi menggunakan machine learning models, deteksi polusi laut otomatis (oil spills, plastic waste) dengan computer vision, monitoring illegal fishing menggunakan AIS data analytics, manajemen sustainable fisheries dengan predictive modeling, ocean current mapping untuk optimasi navigasi kapal, early warning system untuk tsunami dan badai, serta conservation efforts berbasis data science untuk melindungi biodiversity laut Indonesia.', 'https://marine-digital.com/article_smartship')">
+                <div class="card-icon">🌊</div>
+                <h3>AI Ocean</h3>
+                <p>Monitoring laut berbasis kecerdasan buatan</p>
+            </div>
+            <div class="card" onclick="openModal('Human Operator', 'Operator maritim yang diberdayakan dengan AI assistant untuk decision making cepat dan akurat, Augmented Reality (AR) untuk maintenance guidance dan training interaktif, Virtual Reality (VR) simulators untuk pelatihan tanpa risiko, wearable devices untuk monitoring kesehatan dan keselamatan crew, voice-controlled systems untuk hands-free operation, real-time data dashboards dengan AI analytics, collaborative robots (cobots) untuk tugas berbahaya, dan continuous learning platform dengan gamification. Human operator tetap menjadi decision maker utama, sementara AI memberikan insights dan automation untuk tugas repetitif.', 'https://sedna.com/resources/the-maritime-technology-revolution')">
+                <div class="card-icon">👨‍✈️</div>
+                <h3>Human Operator</h3>
+                <p>Manusia sebagai pengendali sistem</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HEL Framework -->
+    <section id="hel" class="container">
+        <h2>🧠 HEL Framework</h2>
+        <p style="text-align: center; margin-bottom: 1rem; font-size: 1.3rem;">
+            <strong>Holistic Experience Learning</strong> - Pendekatan pembelajaran holistik untuk transformasi maritim
+        </p>
+        <p style="text-align: center; margin-bottom: 3rem; max-width: 900px; margin-left: auto; margin-right: auto; font-size: 1.1rem; line-height: 1.8;">
+            HEL Framework adalah metodologi pembelajaran yang dikembangkan khusus untuk MIS 5.0, mengintegrasikan <strong>4 Pilar Kompetensi Maritim</strong> (HEAD-HAND-HEART-HABIT) yang saling terkait dan memperkuat satu sama lain. Ketika keempat pilar ini dikuasai secara holistik, pelaut akan mendapatkan <strong>EXPERIENCE</strong> yang utuh - kombinasi ilmu pengetahuan dan pengalaman praktis yang menghasilkan <strong>Pelaut Modern</strong> yang berijak pada attitude dan kebiasaan baik berdasarkan ilmu pengetahuan yang memadai.
+        </p>
+        <div class="hel-grid">
+            <div class="hel-item" onclick="openHELModal('HEAD (Kepala) - Knowledge & Intelligence', '<strong>HEAD</strong> adalah pilar pertama yang mewakili <strong>Ilmu Pengetahuan, Pikiran, dan Kecerdasan Intelektual</strong> dalam konteks maritime intelligence.<br><br><strong style=color:#FFD700>📚 Aspek Utama HEAD:</strong><br>• <strong>Cognitive Knowledge</strong>: Pemahaman teoritis tentang maritime technology (AI, IoT, automation, digital twin)<br>• <strong>Critical Thinking</strong>: Kemampuan analisis dan problem-solving dalam situasi maritim kompleks<br>• <strong>Technical Understanding</strong>: Penguasaan sistem navigasi, regulasi IMO/SOLAS, maritime safety standards<br>• <strong>Data Literacy</strong>: Interpretasi big data, predictive analytics, machine learning outputs<br>• <strong>Strategic Planning</strong>: Route optimization, fuel efficiency calculation, risk assessment<br><br><strong style=color:#FFD700>🎓 Pengembangan HEAD dalam MIS 5.0:</strong><br>Pelaut modern harus memiliki fondasi knowledge yang kuat tentang teknologi maritim terkini. Menurut <strong>Maritime Psychology Research (MacLachlan, 2015)</strong>, cognitive capabilities pelaut sangat penting untuk decision-making di situasi high-stress dan uncertainty. HEAD training meliputi:<br>• E-learning modules tentang smart ship systems<br>• Technical certification programs<br>• Maritime regulations & compliance training<br>• AI and automation literacy<br><br><strong style=color:#FFD700>💡 Mengapa HEAD Penting?</strong><br>Penelitian <strong>BMC Psychology (2022)</strong> menunjukkan bahwa seafarers dengan training yang memadai memiliki tingkat stress 40% lebih rendah dan decision-making accuracy 60% lebih tinggi. Knowledge adalah fondasi untuk confidence dan competence di laut.<br><br><strong style=color:#2C74B3>🔗 Evidence-Based Research:</strong><br>HEAD framework didukung oleh Maritime Psychology studies yang menekankan pentingnya continuous cognitive development untuk adaptasi dengan teknologi baru dalam maritime industry.', 'https://link.springer.com/book/10.1007/978-3-319-45430-6')">
+                <h4>🎓 HEAD</h4>
+                <p>Knowledge & Intelligence</p>
+                <small>Ilmu pengetahuan, pikiran, dan kecerdasan intelektual</small>
+            </div>
+            <div class="hel-item" onclick="openHELModal('HAND (Tangan) - Skills & Execution', '<strong>HAND</strong> adalah pilar kedua yang mewakili <strong>Keterampilan Praktis, Eksekusi, dan Kompetensi Teknis</strong> dalam operasional maritim.<br><br><strong style=color:#FFD700>🔧 Aspek Utama HAND:</strong><br>• <strong>Technical Skills</strong>: Mengoperasikan smart ship systems, navigation equipment, automation tools<br>• <strong>Practical Execution</strong>: Hands-on experience dengan port automation, cargo handling systems<br>• <strong>Digital Proficiency</strong>: Mahir menggunakan maritime software, AI dashboards, IoT interfaces<br>• <strong>Emergency Response</strong>: Keterampilan troubleshooting, safety procedures, crisis management<br>• <strong>Maintenance Competency</strong>: Predictive maintenance, equipment inspection, technical repair<br><br><strong style=color:#FFD700>⚙️ Pengembangan HAND dalam MIS 5.0:</strong><br>Dari knowledge (HEAD) harus ditransformasikan menjadi skills (HAND). Menurut <strong>International Maritime Health Journal</strong>, seafarers membutuhkan minimum 200 jam practical training untuk kompetensi dasar smart ship operation. HAND training meliputi:<br>• Ship simulator training (VR/AR)<br>• Port automation hands-on workshops<br>• Emergency drill scenarios<br>• Equipment maintenance certification<br><br><strong style=color:#FFD700>💡 Mengapa HAND Penting?</strong><br>Research dari <strong>Yale Maritime Center (2019)</strong> menunjukkan bahwa 75% maritime accidents disebabkan oleh lack of practical skills atau improper execution. HAND yang terlatih mengurangi human error signifikan dan meningkatkan operational efficiency.<br><br><strong style=color:#2C74B3>🔗 Best Practice Global:</strong><br>Norway Maritime Training Standards mewajibkan ratio 70% practical training vs 30% theory untuk menghasilkan competent seafarers yang siap handle modern vessel technology.', 'https://www.smartship2020.eu/')">
+                <h4>🔧 HAND</h4>
+                <p>Skills & Execution</p>
+                <small>Keterampilan teknis, praktis, dan eksekusi operasional</small>
+            </div>
+            <div class="hel-item" onclick="openHELModal('HEART (Hati) - Attitude & Emotional Intelligence', '<strong>HEART</strong> adalah pilar ketiga yang mewakili <strong>Attitude, Perasaan, Empati, dan Kecerdasan Emosional</strong> dalam kehidupan maritim.<br><br><strong style=color:#FFD700>❤️ Aspek Utama HEART:</strong><br>• <strong>Positive Attitude</strong>: Mental resilience, optimism, growth mindset dalam menghadapi challenges<br>• <strong>Emotional Intelligence (EQ)</strong>: Self-awareness, empathy, emotional regulation di lingkungan terisolasi<br>• <strong>Team Cohesion</strong>: Kemampuan bekerja harmonis dengan crew multinasional, respect diversity<br>• <strong>Nurturing Spirit</strong>: Care untuk sesama crew, mental health awareness, peer support<br>• <strong>Professional Ethics</strong>: Integrity, responsibility, commitment to safety dan environmental protection<br><br><strong style=color:#FFD700>💙 Pengembangan HEART dalam MIS 5.0:</strong><br>Ini adalah dimensi PALING KRUSIAL namun sering diabaikan. <strong>Systematic Review BMC Psychology (2022)</strong> mengidentifikasi bahwa poor emotional wellbeing adalah predictor terbesar untuk seafarer turnover (20% suicidal ideation, 17% anxiety disorder). HEART development meliputi:<br>• Mental health awareness training<br>• Emotional intelligence workshops<br>• Peer support system establishment<br>• Cultural sensitivity programs<br>• Work-life balance strategies<br><br><strong style=color:#FFD700>💡 Mengapa HEART Penting?</strong><br>Penelitian <strong>ITF Seafarers Trust & Yale University (2019)</strong> pada 1,572 seafarers menemukan bahwa depression, anxiety, dan poor team cohesion adalah faktor #1 yang membuat seafarers ingin quit dalam 6 bulan. <strong>Mission to Seafarers Happiness Index</strong> melaporkan bahwa work environment factors (leadership, social support) lebih penting dari salary untuk seafarer wellbeing.<br><br><strong style=color:#2C74B3>🔗 Maritime Psychology Evidence:</strong><br>63 peer-reviewed studies (2012-2021) mengkonfirmasi: social isolation, poor team cohesion, dan lack of emotional support adalah top mental health risk factors untuk seafarers.', 'https://bmcpsychology.biomedcentral.com/articles/10.1186/s40359-022-00850-4')">
+                <h4>❤️ HEART</h4>
+                <p>Attitude & Emotional Intelligence</p>
+                <small>Attitude, perasaan, empati, dan nurturing spirit</small>
+            </div>
+            <div class="hel-item" onclick="openHELModal('HABIT (Kebiasaan) - Continuous Learning & Excellence', '<strong>HABIT</strong> adalah pilar keempat yang mewakili <strong>Kebiasaan Baik, Continuous Learning, dan Pursuit of Excellence</strong> sepanjang karir maritim.<br><br><strong style=color:#FFD700>🔄 Aspek Utama HABIT:</strong><br>• <strong>Continuous Learning</strong>: Selalu update dengan maritime technology terbaru, never stop learning<br>• <strong>Disciplined Practice</strong>: Konsistensi dalam safety procedures, quality standards, best practices<br>• <strong>Adaptive Behavior</strong>: Cepat beradaptasi dengan new systems, regulations, operational changes<br>• <strong>Reflective Practice</strong>: Regular self-assessment, learn from mistakes, seek feedback<br>• <strong>Excellence Mindset</strong>: Kaizen (continuous improvement), innovation culture, proactive problem-solving<br><br><strong style=color:#FFD700>♻️ Pengembangan HABIT dalam MIS 5.0:</strong><br>HABIT adalah yang membedakan good seafarer dari great seafarer. Ini tentang internalisasi best practices menjadi second nature. Menurut <strong>World Maritime University Research</strong>, top-performing seafarers memiliki habit patterns yang konsisten:<br>• Daily safety check routines<br>• Regular equipment maintenance schedules<br>• Continuous professional development (CPD)<br>• Knowledge sharing dengan junior crew<br>• Proactive learning tentang new technologies<br><br><strong style=color:#FFD700>💡 Mengapa HABIT Penting?</strong><br>Research menunjukkan bahwa <strong>80% maritime excellence</strong> bukan dari exceptional talent, tapi dari consistent good habits. <strong>Maritime Resilience Studies (2023)</strong> menemukan bahwa seafarers dengan strong learning habits memiliki 3x higher career satisfaction dan 50% lower burnout rates.<br><br><strong style=color:#2C74B3>🌟 The Power of HABIT:</strong><br>Ketika HEAD (knowledge), HAND (skills), dan HEART (attitude) dipraktikkan secara konsisten, mereka menjadi HABIT. Dan HABIT yang baik menghasilkan HOLISTIC EXPERIENCE yang membentuk Pelaut Modern - competent, resilient, dan always evolving.', 'https://www.trade.gov/market-intelligence/indonesia-infrastructure-smart-port-development')">
+                <h4>🔄 HABIT</h4>
+                <p>Continuous Learning & Excellence</p>
+                <small>Kebiasaan baik dan pembelajaran berkelanjutan</small>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; padding: 2.5rem; background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(44, 116, 179, 0.15)); border-radius: 20px; border: 3px solid var(--gold);">
+            <h3 style="color: var(--gold); margin-bottom: 1.5rem; text-align: center; font-size: 1.5rem;">⭐ HOLISTIC EXPERIENCE: Hasil Integrasi 4 Pilar HEL</h3>
+            <div style="background: rgba(255, 255, 255, 0.08); padding: 2rem; border-radius: 15px; line-height: 1.9;">
+                <p style="margin-bottom: 1.5rem; font-size: 1.1rem;">
+                    Ketika keempat pilar <strong>HEAD-HAND-HEART-HABIT</strong> dikuasai secara holistik dan terintegrasi, pelaut akan mendapatkan <strong>EXPERIENCE</strong> yang bermakna:
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                    <div style="background: rgba(255, 215, 0, 0.1); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--gold);">
+                        <strong style="color: var(--gold); font-size: 1.1rem;">📖 Ilmu Pengetahuan (HEAD)</strong>
+                        <p style="margin-top: 0.5rem;">Foundational knowledge tentang maritime technology & systems</p>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.1); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--cyan);">
+                        <strong style="color: #FFD700; font-size: 1.1rem;">🛠️ Keterampilan Praktis (HAND)</strong>
+                        <p style="margin-top: 0.5rem; color: #FFE066;">Hands-on competency dalam operasi kapal modern</p>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.1); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #FF6B6B;">
+                        <strong style="color: #FFD700; font-size: 1.1rem;">❤️ Attitude Positif (HEART)</strong>
+                        <p style="margin-top: 0.5rem; color: #FFE066;">Emotional intelligence & team collaboration excellence</p>
+                    </div>
+                    <div style="background: rgba(255, 215, 0, 0.1); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--light);">
+                        <strong style="color: #FFD700; font-size: 1.1rem;">♻️ Kebiasaan Baik (HABIT)</strong>
+                        <p style="margin-top: 0.5rem; color: #FFE066;">Continuous learning & excellence mindset</p>
+                    </div>
+                </div>
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.05); border-radius: 12px; text-align: center;">
+                    <p style="font-size: 1.2rem; font-weight: 600; color: var(--gold); margin-bottom: 1rem;">
+                        🌟 = HOLISTIC EXPERIENCE 🌟
+                    </p>
+                    <p style="font-size: 1.1rem; line-height: 1.8;">
+                        Hasil akhirnya adalah <strong>PELAUT MODERN MIS 5.0</strong>: Memiliki ilmu pengetahuan yang memadai (HEAD), keterampilan eksekusi yang andal (HAND), attitude dan empati yang matang (HEART), serta kebiasaan continuous excellence (HABIT). Mereka siap menghadapi era Maritime 5.0 dengan confidence, competence, dan compassion.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gamification -->
+    <section class="container">
+        <div class="gamification">
+            <h3>🏆 Maritime Intelligence Level</h3>
+            <div class="stats">
+                <div class="stat" onclick="openGamificationModal('XP Points', '<strong>XP (Experience Points)</strong> adalah sistem poin pengalaman yang mengukur aktivitas dan progres pembelajaran Anda di platform MIS 5.0.<br><br><strong style=color:#FFD700>⭐ Cara Mendapatkan XP:</strong><br>• <strong>Quiz Completion</strong>: +100 XP per jawaban benar<br>• <strong>Learning Modules</strong>: +50 XP saat membuka/start modul<br>• <strong>Feedback Submission</strong>: +30 XP per feedback yang dikirim<br>• <strong>Exploring Ecosystem</strong>: +20 XP per komponen yang dipelajari<br>• <strong>HEL Framework Study</strong>: +25 XP per pilar yang didalami<br><br><strong style=color:#FFD700>📊 Sistem XP Berdasarkan Research:</strong><br>Gamification dalam maritime training terbukti meningkatkan <strong>engagement 65%</strong> dan <strong>knowledge retention 45%</strong> menurut Maritime Education & Training research. XP points memberikan:<br>• <strong>Clear Progress Tracking</strong>: Visualisasi konkret dari learning journey<br>• <strong>Motivation Boost</strong>: Reward system yang mendorong continuous learning<br>• <strong>Achievement Recognition</strong>: Validasi untuk effort dan dedication<br>• <strong>Competitive Spirit</strong>: Healthy competition dalam maritime community<br><br><strong style=color:#FFD700>🎯 Target XP Milestones:</strong><br>• <strong>0-199 XP</strong>: Beginner phase - exploring basics<br>• <strong>200-499 XP</strong>: Intermediate - active engagement<br>• <strong>500-999 XP</strong>: Advanced - deep understanding<br>• <strong>1000+ XP</strong>: Expert - mastery level<br><br><strong style=color:#2C74B3>💡 Pro Tips:</strong><br>XP bukan hanya angka - ini adalah reflection dari commitment Anda untuk menjadi maritime professional yang lebih baik. Semakin banyak XP, semakin dalam pemahaman Anda tentang Maritime Intelligence System 5.0!')">
+                    <div class="stat-value" id="xp">0</div>
+                    <div>XP Points</div>
+                </div>
+                <div class="stat" onclick="openGamificationModal('Badge System', '<strong>BADGE</strong> adalah lencana pencapaian visual yang menunjukkan level kompetensi dan dedikasi Anda dalam maritime intelligence learning.<br><br><strong style=color:#FFD700>🎖️ Badge Progression System:</strong><br><br><strong>🔰 BASIC BADGE (0-199 XP)</strong><br>• <strong>Status</strong>: Maritime Beginner<br>• <strong>Karakteristik</strong>: Baru mulai journey di MIS 5.0<br>• <strong>Focus</strong>: Understanding fundamental concepts<br>• <strong>Milestone</strong>: Completing first 3-4 modules atau quiz<br><br><strong>🏅 BRONZE BADGE (200-499 XP)</strong><br>• <strong>Status</strong>: Maritime Explorer<br>• <strong>Karakteristik</strong>: Aktif exploring berbagai aspek MIS 5.0<br>• <strong>Focus</strong>: Deepening knowledge & practical understanding<br>• <strong>Milestone</strong>: Consistent engagement, multiple quiz attempts<br><br><strong>🥈 SILVER BADGE (500-999 XP)</strong><br>• <strong>Status</strong>: Maritime Officer<br>• <strong>Karakteristik</strong>: Solid grasp of maritime intelligence concepts<br>• <strong>Focus</strong>: Advanced topics & real-world application<br>• <strong>Milestone</strong>: Comprehensive platform engagement<br><br><strong>🥇 GOLD BADGE (1000+ XP)</strong><br>• <strong>Status</strong>: Maritime Architect<br>• <strong>Karakteristik</strong>: Expert level understanding<br>• <strong>Focus</strong>: Innovation, knowledge sharing, mentoring<br>• <strong>Milestone</strong>: Platform mastery & community contribution<br><br><strong style=color:#FFD700>🌟 Psychology of Badges:</strong><br>Menurut <strong>Educational Psychology Research</strong>, badge systems meningkatkan intrinsic motivation karena:<br>• <strong>Social Recognition</strong>: Status yang visible dalam community<br>• <strong>Progress Visualization</strong>: Tangible proof of growth<br>• <strong>Goal Setting</strong>: Clear milestones untuk dicapai<br>• <strong>Identity Formation</strong>: Sense of belonging dalam maritime professional community<br><br>Badge Anda adalah <strong>visual identity</strong> dari maritime intelligence journey Anda!')">
+                    <div class="stat-value" id="badge">🔰</div>
+                    <div>Badge</div>
+                </div>
+                <div class="stat" onclick="openGamificationModal('Level System', '<strong>LEVEL</strong> menggambarkan tingkat kompetensi dan pemahaman Anda tentang Maritime Intelligence System 5.0. Setiap level mewakili stage tertentu dalam professional development journey.<br><br><strong style=color:#FFD700>⚓ 4 Level Progression:</strong><br><br><strong>🌊 MARITIME CADET (0-199 XP)</strong><br>• <strong>Learning Stage</strong>: Foundation Building<br>• <strong>Kompetensi</strong>: Memahami konsep dasar MIS 5.0, familiar dengan terminologi maritime technology<br>• <strong>Karakteristik</strong>: Curious, eager to learn, asking questions<br>• <strong>Aktivitas</strong>: Exploring modules, taking first quizzes, reading references<br>• <strong>Goal</strong>: Build strong foundation knowledge<br><br><strong>🧭 MARITIME EXPLORER (200-499 XP)</strong><br>• <strong>Learning Stage</strong>: Active Exploration<br>• <strong>Kompetensi</strong>: Dapat menjelaskan HEL framework, memahami ekosistem MIS 5.0<br>• <strong>Karakteristik</strong>: Engaged learner, making connections<br>• <strong>Aktivitas</strong>: Deep-dive ke specific topics, consistent platform engagement<br>• <strong>Goal</strong>: Expand knowledge breadth & depth<br><br><strong>⚙️ MARITIME OFFICER (500-999 XP)</strong><br>• <strong>Learning Stage</strong>: Advanced Understanding<br>• <strong>Kompetensi</strong>: Solid grasp of maritime intelligence, dapat apply concepts<br>• <strong>Karakteristik</strong>: Analytical thinker, problem solver<br>• <strong>Aktivitas</strong>: Contributing feedback, exploring international references, advanced quiz mastery<br>• <strong>Goal</strong>: Achieve professional-level competency<br><br><strong>🏗️ MARITIME ARCHITECT (1000+ XP)</strong><br>• <strong>Learning Stage</strong>: Mastery & Innovation<br>• <strong>Kompetensi</strong>: Expert-level understanding, mampu design maritime intelligence solutions<br>• <strong>Karakteristik</strong>: Thought leader, innovator, mentor<br>• <strong>Aktivitas</strong>: Knowledge sharing, mentoring others, contributing to MIS 5.0 development<br>• <strong>Goal</strong>: Shape the future of maritime intelligence<br><br><strong style=color:#FFD700>📈 Career Parallel:</strong><br>Level system ini dirancang parallel dengan maritime career progression:<br>• <strong>Cadet</strong> = Entry-level seafarer<br>• <strong>Explorer</strong> = Junior officer<br>• <strong>Officer</strong> = Senior officer / Chief<br>• <strong>Architect</strong> = Master / Maritime consultant<br><br>Your level reflects not just knowledge, but your <strong>readiness untuk berkontribusi</strong> dalam Maritime 5.0 transformation!')">
+                    <div class="stat-value" id="level">Cadet</div>
+                    <div>Level</div>
+                </div>
+            </div>
+            
+            <!-- Penjelasan Gamification System -->
+            <div style="margin-top: 2rem; padding: 2rem; background: rgba(255, 255, 255, 0.1); border-radius: 15px; text-align: left;">
+                <h4 style="color: var(--gold); margin-bottom: 1.5rem; text-align: center; font-size: 1.3rem;">📖 Apa itu Maritime Intelligence Level?</h4>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <h5 style="color: #FFD700; margin-bottom: 0.5rem;">⭐ XP Points (Experience Points)</h5>
+                    <p style="line-height: 1.8; color: #FFE066;">XP adalah poin pengalaman yang Anda kumpulkan setiap kali berinteraksi dengan platform MIS 5.0. Anda mendapatkan XP dengan:</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.8; color: #FFE066;">
+                        <li>Menyelesaikan Quiz (+100 XP per jawaban benar)</li>
+                        <li>Membuka Learning Modules (+50 XP per modul)</li>
+                        <li>Mengexplore Ekosistem dan HEL Framework</li>
+                        <li>Berpartisipasi dalam diskusi dan sharing knowledge</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem; font-style: italic; opacity: 0.9; color: #FFE066;">Semakin banyak XP, semakin tinggi level maritime intelligence Anda!</p>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <h5 style="color: #FFD700; margin-bottom: 0.5rem;">🎖️ Badge (Lencana Pencapaian)</h5>
+                    <p style="line-height: 1.8; color: #FFE066;">Badge adalah simbol visual yang menunjukkan pencapaian dan progres Anda dalam pembelajaran maritime intelligence:</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.8; color: #FFE066;">
+                        <li>🔰 <strong>Basic Badge</strong> - Pemula (0-199 XP)</li>
+                        <li>🏅 <strong>Bronze Badge</strong> - Explorer (200-499 XP)</li>
+                        <li>🥈 <strong>Silver Badge</strong> - Officer (500-999 XP)</li>
+                        <li>🥇 <strong>Gold Badge</strong> - Architect (1000+ XP)</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem; font-style: italic; opacity: 0.9; color: #FFE066;">Badge Anda akan upgrade otomatis saat mencapai threshold XP tertentu!</p>
+                </div>
+
+                <div>
+                    <h5 style="color: #FFD700; margin-bottom: 0.5rem;">⚓ Level System (Tingkatan Kompetensi)</h5>
+                    <p style="line-height: 1.8; color: #FFE066;">Level menggambarkan tingkat kompetensi dan pemahaman Anda tentang Maritime Intelligence System 5.0:</p>
+                    <ul style="margin-left: 1.5rem; margin-top: 0.5rem; line-height: 1.8; color: #FFE066;">
+                        <li><strong>Maritime Cadet</strong> (0-199 XP) - Tahap awal pembelajaran, memahami konsep dasar MIS 5.0</li>
+                        <li><strong>Maritime Explorer</strong> (200-499 XP) - Aktif exploring berbagai modul dan ekosistem maritime</li>
+                        <li><strong>Maritime Officer</strong> (500-999 XP) - Memiliki pemahaman solid tentang teknologi dan aplikasi maritime</li>
+                        <li><strong>Maritime Architect</strong> (1000+ XP) - Expert level, mampu merancang dan mengimplementasikan solusi maritime intelligence</li>
+                    </ul>
+                    <p style="margin-top: 0.5rem; font-style: italic; opacity: 0.9; color: #FFE066;">Level ini mencerminkan journey Anda dari learner menjadi maritime technology expert!</p>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-left: 4px solid var(--gold); border-radius: 8px;">
+                    <p style="font-weight: 600; color: var(--gold);">💡 Tips:</p>
+                    <p style="margin-top: 0.5rem; line-height: 1.8;">Gamification system ini dirancang untuk membuat pembelajaran lebih engaging dan terukur. Setiap aktivitas Anda berkontribusi pada pertumbuhan maritime intelligence Anda. Keep learning, keep exploring! 🚀</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Modules -->
+    <section id="modules" class="container">
+        <h2>📚 Learning Modules</h2>
+        <div class="modules-grid">
+            <div class="module-card">
+                <h4>Module 1: Introduction to Maritime 5.0</h4>
+                <p>Memahami konsep dasar Maritime 5.0, transformasi digital, dan peran AI dalam industri maritim.</p>
+                <button onclick="startLearning('Module 1: Introduction to Maritime 5.0', 'Dalam modul ini Anda akan mempelajari: Evolution dari Maritime 1.0 hingga 5.0, Perbedaan Industry 4.0 vs 5.0, Human-centered approach dalam teknologi maritim, Global maritime trends dan Indonesia position, Case studies: Japan Society 5.0, Norway autonomous shipping, Singapore Smart Port Nation. Modul ini dilengkapi dengan video pembelajaran, interactive infographics, dan quiz assessment.')">Start Learning</button>
+            </div>
+            <div class="module-card">
+                <h4>Module 2: Smart Port Technology</h4>
+                <p>Teknologi pelabuhan pintar, otomasi, IoT sensors, dan sistem manajemen terpadu.</p>
+                <button onclick="startLearning('Module 2: Smart Port Technology', 'Modul komprehensif tentang: Automated Container Terminals (ACT), IoT sensors untuk cargo tracking, AI-powered yard management systems, Blockchain untuk supply chain transparency, Digital twin technology untuk port simulation, NLE (National Logistics Ecosystem) platform, Pelindo smart port implementation, Cyber security dalam port operations. Dilengkapi hands-on simulator dan case study Tanjung Priok Port.')">Start Learning</button>
+            </div>
+            <div class="module-card">
+                <h4>Module 3: Autonomous Vessels</h4>
+                <p>Kapal otonom, sistem navigasi AI, dan keselamatan maritim modern.</p>
+                <button onclick="startLearning('Module 3: Autonomous Vessels', 'Deep dive into: Autonomous navigation systems dan sensor fusion (radar, lidar, AIS, camera), AI decision support untuk route optimization, Collision avoidance algorithms, Remote monitoring & control systems, Regulatory framework untuk autonomous ships, MASS (Maritime Autonomous Surface Ships) levels, Safety dan cybersecurity considerations, Future of seafarer roles. Termasuk VR ship simulator experience.')">Start Learning</button>
+            </div>
+            <div class="module-card">
+                <h4>Module 4: AI & Machine Learning</h4>
+                <p>Penerapan AI dan machine learning dalam prediksi, optimasi, dan decision making maritim.</p>
+                <button onclick="startLearning('Module 4: AI & Machine Learning', 'Pembelajaran mencakup: Machine learning fundamentals untuk maritime professionals, Predictive maintenance using ML models, Fuel consumption optimization algorithms, Weather prediction dan ocean current analysis, Computer vision untuk vessel inspection, Natural Language Processing untuk maritime documentation, AI ethics dan responsible AI, Hands-on project: Build simple ML model untuk maritime use case.')">Start Learning</button>
+            </div>
+            <div class="module-card">
+                <h4>Module 5: Human-AI Collaboration</h4>
+                <p>Kolaborasi manusia dan AI, augmented intelligence, dan peningkatan produktivitas.</p>
+                <button onclick="startLearning('Module 5: Human-AI Collaboration', 'Exploring: Augmented intelligence vs Artificial intelligence, Human-in-the-loop systems design, AI assistants untuk maritime operators, AR/VR training platforms, Wearable technology untuk crew safety, Voice-controlled ship systems, Decision support systems, Change management dalam AI adoption, Future skills untuk maritime workforce. Interactive workshop dan role-playing scenarios.')">Start Learning</button>
+            </div>
+            <div class="module-card">
+                <h4>Module 6: Sustainable Maritime</h4>
+                <p>Keberlanjutan maritim, green technology, dan manajemen lingkungan laut.</p>
+                <button onclick="startLearning('Module 6: Sustainable Maritime', 'Comprehensive study on: IMO 2050 emission reduction targets, Alternative fuels (LNG, hydrogen, ammonia, electric), Energy efficiency technologies, Green port initiatives di Indonesia, Ocean pollution monitoring dengan AI, Sustainable fisheries management, Carbon accounting dalam shipping, Circular economy dalam maritime industry, ESG (Environmental, Social, Governance) reporting. Project: Design green maritime solution.')">Start Learning</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Feedback Section -->
+    <section id="feedback" class="container" style="margin-top: 5rem;">
+        <h2>💬 Interactive Feedback & FAQ</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 3rem; font-size: 1.1rem; line-height: 1.8;">
+            Kami mendengarkan Anda! Sampaikan opini, pertanyaan, atau saran Anda tentang Maritime Intelligence System 5.0. 
+            Semua feedback akan ditampung dan dijawab dalam section <strong>FAQ (Frequently Asked Questions)</strong>.
+        </p>
+
+        <div style="max-width: 700px; margin: 0 auto;">
+            <!-- Feedback Form -->
+            <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; border: 2px solid rgba(255, 255, 255, 0.2);">
+                <h3 style="color: var(--gold); margin-bottom: 1.5rem; text-align: center;">📝 Submit Your Feedback</h3>
+                
+                <form id="feedbackForm" style="display: grid; gap: 1.5rem;">
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Nama Anda:</label>
+                        <input type="text" id="userName" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--light); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;">
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email (Opsional):</label>
+                        <input type="email" id="userEmail" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--light); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;">
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Kategori:</label>
+                        <select id="feedbackCategory" required style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--light); background: rgba(255, 255, 255, 0.15); color: white; font-size: 1rem;">
+                            <option value="">Pilih Kategori</option>
+                            <option value="Pertanyaan">❓ Pertanyaan</option>
+                            <option value="Saran">💡 Saran & Masukan</option>
+                            <option value="Opini">💭 Opini</option>
+                            <option value="Bug Report">🐛 Laporkan Bug/Error</option>
+                            <option value="Kolaborasi">🤝 Proposal Kolaborasi</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Pesan Anda:</label>
+                        <textarea id="feedbackMessage" required rows="5" style="width: 100%; padding: 0.8rem; border-radius: 8px; border: 1px solid var(--light); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem; resize: vertical;" placeholder="Tuliskan pertanyaan, opini, atau saran Anda di sini..."></textarea>
+                    </div>
+
+                    <button type="submit" style="background: linear-gradient(45deg, var(--light), var(--cyan)); color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 15px rgba(44, 116, 179, 0.4);">
+                        🚀 Kirim Feedback
+                    </button>
+                </form>
+
+                <div id="feedbackSuccess" style="display: none; margin-top: 1.5rem; padding: 1rem; background: rgba(0, 255, 0, 0.1); border: 2px solid #00ff00; border-radius: 10px; text-align: center;">
+                    <p style="color: #00ff00; font-weight: 600;">✅ Terima kasih! Feedback Anda telah tersimpan dan akan segera ditinjau oleh tim MIS 5.0.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Preview -->
+            <div style="margin-top: 3rem; padding: 2rem; background: rgba(255, 255, 255, 0.08); border-radius: 15px; border-left: 4px solid var(--gold);">
+                <h3 style="color: var(--gold); margin-bottom: 1.5rem;">❓ Frequently Asked Questions (FAQ)</h3>
+                <div id="faqContainer">
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border-left: 3px solid var(--gold);">
+                        <h4 style="color: #FFD700; margin-bottom: 0.5rem;">Q: Apakah MIS 5.0 sudah diimplementasikan di Indonesia?</h4>
+                        <p style="line-height: 1.8; color: #FFE066;"><strong>A:</strong> MIS 5.0 saat ini adalah blueprint dan framework konseptual. Beberapa komponen seperti smart port technology sudah mulai diimplementasikan di 14 pelabuhan utama Indonesia (Pelindo). Target full implementation di 246 pelabuhan sedang dalam roadmap 2024-2030.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border-left: 3px solid var(--gold);">
+                        <h4 style="color: #FFD700; margin-bottom: 0.5rem;">Q: Bagaimana cara bergabung dengan program pembelajaran MIS 5.0?</h4>
+                        <p style="line-height: 1.8; color: #FFE066;"><strong>A:</strong> Saat ini platform masih dalam tahap development. Anda bisa mulai dengan mengexplore learning modules yang tersedia di website ini, mengikuti quiz, dan mengumpulkan XP. Full learning platform dengan certification akan diluncurkan segera.</p>
+                    </div>
+
+                    <div style="margin-bottom: 1.5rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border-left: 3px solid var(--gold);">
+                        <h4 style="color: #FFD700; margin-bottom: 0.5rem;">Q: Apakah ada biaya untuk mengakses MIS 5.0 learning platform?</h4>
+                        <p style="line-height: 1.8; color: #FFE066;"><strong>A:</strong> Basic learning modules akan tersedia gratis untuk publik. Advanced modules dengan certification mungkin akan berbayar untuk sustainability program. Detail pricing akan diumumkan saat platform resmi diluncurkan.</p>
+                    </div>
+
+                    <p style="text-align: center; margin-top: 2rem; font-style: italic; opacity: 0.8;">
+                        💡 FAQ ini akan terus diperbarui berdasarkan pertanyaan yang masuk dari komunitas
+                    </p>
+                </div>
+            </div>
+
+            <!-- Data Storage Info -->
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border: 1px solid var(--gold);">
+                <p style="text-align: center; line-height: 1.8;">
+                    📊 <strong>Data Storage:</strong> Semua feedback disimpan secara lokal di browser Anda untuk review. 
+                    Untuk versi production, data akan terintegrasi dengan Google Forms/Google Sheets untuk management yang lebih baik.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section id="quiz" class="container">
+        <h2>🎯 Test Your Knowledge</h2>
+        <div class="quiz-container" id="quizBox">
+            <h3 id="question">Loading...</h3>
+            <div class="options">
+                <button class="option" id="opt1"></button>
+                <button class="option" id="opt2"></button>
+                <button class="option" id="opt3"></button>
+                <button class="option" id="opt4"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- References Section -->
+    <section id="references" class="container">
+        <h2>📖 Global References & Research</h2>
+        
+        <!-- International References -->
+        <div style="margin-bottom: 3rem;">
+            <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 2rem;">🌍 International Maritime 5.0 Research</h3>
+            <div class="ref-grid">
+                <div class="ref-card">
+                    <h4>🎓 IEEE - Digital Twin Maritime Industry 5.0</h4>
+                    <p>Digital twin technology empowering smart maritime logistics management in Industry 5.0 context with IoT and AI integration.</p>
+                    <a href="https://ieeexplore.ieee.org/document/10401169/" target="_blank">Read Research Paper →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>📚 ResearchGate - Industry 5.0 Maritime</h4>
+                    <p>Systematic review on 3,372 publications about digital twin-enabled smart maritime logistics (2003-2023).</p>
+                    <a href="https://www.researchgate.net/publication/377452596_Digital_Twin-enabled_Smart_Maritime_Logistics_Management_in_the_Context_of_Industry_50" target="_blank">Access Full Study →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🚢 Smart Ship Technology Guide</h4>
+                    <p>Comprehensive guide on IoT, AI, and big data integration in maritime operations for enhanced efficiency.</p>
+                    <a href="https://maridec.com/smart-ship-technology-transforming-maritime-operations-with-innovation/" target="_blank">View Resource →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🇳🇱 Netherlands Smart Shipping</h4>
+                    <p>Government policy on autonomous vessels, digital navigation, and sustainable maritime innovation.</p>
+                    <a href="https://www.government.nl/topics/maritime-transport-and-seaports/smart-shipping-comprehensive-automation-in-the-maritime-sector" target="_blank">Explore Initiative →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>📊 Maritime Policy & Management</h4>
+                    <p>Smart maritime logistics supported by advanced technologies - digitalization and automation trends.</p>
+                    <a href="https://www.tandfonline.com/doi/full/10.1080/03088839.2025.2474470" target="_blank">Read Journal →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🌐 Smart Ship Hub Platform</h4>
+                    <p>Unified digital platform for vessel performance, fuel optimization, and maritime decarbonization.</p>
+                    <a href="https://smartshiphub.com/" target="_blank">Visit Platform →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🔬 SmartShip EU Project</h4>
+                    <p>European ICT-enabled cloud-based system for energy efficiency, emissions control, and circular economy.</p>
+                    <a href="https://www.smartship2020.eu/" target="_blank">Discover Project →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>⚓ Maritime Technology Revolution</h4>
+                    <p>Navigating shipping's future with AI, digital twins, IoT, and sustainable maritime technologies.</p>
+                    <a href="https://sedna.com/resources/the-maritime-technology-revolution" target="_blank">Explore Trends →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🎯 What is Smart Shipping?</h4>
+                    <p>Deep dive into how technology revolutionizes maritime operations with real-time tracking and AI systems.</p>
+                    <a href="https://www.lmitac.com/articles/tech-transforms-shipping-safer-greener-efficient" target="_blank">Learn More →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🤖 Marine Digital - Smart Ship</h4>
+                    <p>Main technological trends in digital ship: sensors, big data, AI optimization, and connected systems.</p>
+                    <a href="https://marine-digital.com/article_smartship" target="_blank">Read Article →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indonesian National References -->
+        <div>
+            <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 2rem;">🇮🇩 Indonesian Maritime 5.0 Development</h3>
+            <div class="ref-grid">
+                <div class="ref-card">
+                    <h4>🏗️ Indonesia Smart Port Development</h4>
+                    <p>Pelindo's digitalization of 14 major ports (2022-2023) expanding to 246 ports with NLE system and IoT integration.</p>
+                    <a href="https://www.trade.gov/market-intelligence/indonesia-infrastructure-smart-port-development" target="_blank">US Trade.gov Report →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🌱 Indonesia Green Ports Initiative</h4>
+                    <p>MARVES target: Transform 149 of 348 ports into green and smart ports by 2024 with sustainability focus.</p>
+                    <a href="https://www.trade.gov/market-intelligence/indonesia-green-ports-initiative" target="_blank">View Initiative →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🚢 Top Container Ports Indonesia 2024</h4>
+                    <p>Tanjung Priok (7.6M TEUs), Tanjung Perak, Belawan - Digital transformation and Port 4.0 integration.</p>
+                    <a href="https://ship4wd.com/import-guides/container-ports-in-indonesia" target="_blank">Complete Guide →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🔵 Pelindo Blue & Smart Port</h4>
+                    <p>IoT, AI, blockchain, digital twin, 5G automation for cargo efficiency and environmental sustainability.</p>
+                    <a href="https://marinereport.com/exclusive/indonesias-ports-push-smart-and-blue-agenda" target="_blank">Marine Report →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>📡 Digital Transformation Maturity Model</h4>
+                    <p>Scientific research on 45 Indonesian ports - DTMPA model for archipelago digital maturity assessment.</p>
+                    <a href="https://www.sciencedirect.com/science/article/pii/S2590198224001325" target="_blank">ScienceDirect Study →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🌊 PORT - Maritime Connectivity ASEAN</h4>
+                    <p>AIIB-ASEAN joint program for Indonesia regional transport optimization and port infrastructure enhancement.</p>
+                    <a href="https://www.themcdf.org/en/news-activities/news/2024/Indonesia-Regional-Transport-Project.html" target="_blank">MCDF Report →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🛥️ Indonesia Barge Fleet Market 2024-2035</h4>
+                    <p>Smart port tech: Inaportnet, SIMLALA, NLE platforms with IoT sensors and automation across 246 ports.</p>
+                    <a href="https://www.expertmarketresearch.com/reports/indonesia-barge-fleet-market" target="_blank">Market Analysis →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🎣 Nizam Zachman Port AIoT Upgrade</h4>
+                    <p>Hikvision AIoT technologies: Smart cameras, thermal sensors, AI ship identification for fishing port.</p>
+                    <a href="https://www.hikvision.com/en/newsroom/success-stories/port/indonesian-fishing-port-s-tech-upgrade-aiot-for-smarter-operations/" target="_blank">Success Story →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🌏 Indonesia Maritime Week</h4>
+                    <p>National conference on smart shipping, digitalization, AI logistics, blockchain, and IoT integration.</p>
+                    <a href="https://indonesiamaritimeweek.com/program-details/" target="_blank">Event Programs →</a>
+                </div>
+                <div class="ref-card">
+                    <h4>🏛️ National Maritime Infrastructure</h4>
+                    <p>195 Strategic Projects completed (Rp1,520T/$98.8B) - Transport digitalization and connectivity expansion.</p>
+                    <a href="https://oxfordbusinessgroup.com/reports/indonesia/2024-report/transport-infrastructure/rapid-expansion-long-term-goals-include-electrifying-public-transport-building-new-ports-and-expanding-existing-airports-overview/" target="_blank">Oxford Report →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div style="text-align: center; margin-top: 4rem; padding: 3rem; background: rgba(255, 255, 255, 0.05); border-radius: 20px;">
+            <h3 style="color: var(--gold); margin-bottom: 1rem;">📚 Contributing to Maritime 5.0 Research</h3>
+            <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+                Website ini mengintegrasikan penelitian global dan perkembangan nasional Indonesia dalam Maritime Intelligence System 5.0. 
+                Semua referensi adalah sumber terpercaya dari jurnal ilmiah, institusi pemerintah, dan organisasi maritim internasional.
+            </p>
+            <p style="opacity: 0.8;">
+                Terakhir diperbarui: Januari 2026 | Total Referensi: 20 Sumber
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>🏛️ Government</h4>
+                <a href="#">Kementerian Perhubungan</a>
+                <a href="#">Kementerian Kelautan</a>
+                <a href="#">BRIN</a>
+            </div>
+            <div class="footer-section">
+                <h4>🎓 Campus</h4>
+                <a href="https://poltekpel-sby.ac.id/" target="_blank">Politeknik Maritim (POLTEKPEL Surabaya)</a>
+                <a href="#">Universitas Maritim</a>
+                <a href="#">Research Center</a>
+            </div>
+            <div class="footer-section">
+                <h4>🏭 Industry</h4>
+                <a href="#">Pelindo</a>
+                <a href="https://www.yara.com/news-and-media/media-library/press-kits/yara-birkeland-press-kit/" target="_blank">Shipping Companies (Autonomous Ships)</a>
+                <a href="#">Tech Partners</a>
+            </div>
+            <div class="footer-section">
+                <h4>👥 Community</h4>
+                <a href="#">Developer Community</a>
+                <a href="#">Maritime Forum</a>
+                <a href="#">Seafarer Network</a>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.2);">
+            <p style="margin-bottom: 1rem; font-size: 1.1rem; color: var(--gold);">
+                <strong>Created & Designed By:</strong>
+            </p>
+            <p style="margin-bottom: 0.5rem; font-size: 1.2rem; font-weight: 600;">
+                Rafael Sukirno, CE.
+            </p>
+            <p style="margin-bottom: 1.5rem; opacity: 0.9;">
+                The Maritime Survival Teams (Design Creator)
+            </p>
+        </div>
+        
+        <p style="margin-top: 1rem; opacity: 0.8;">
+            © 2026 Maritime Intelligence System 5.0 (MIS 5.0) | Built for Indonesia's Maritime Future
+        </p>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDesc"></p>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizData = [
+            {
+                question: "Apa singkatan yang benar untuk Maritime Intelligence System 5.0?",
+                options: ["MSI 5.0", "MIS 5.0", "MIT 5.0", "MAS 5.0"],
+                answer: 1
+            },
+            {
+                question: "Apa inti utama MIS 5.0?",
+                options: ["Otomatisasi penuh tanpa manusia", "Human-centered + AI Integration", "Digitalisasi kapal saja", "Robotisasi pelabuhan"],
+                answer: 1
+            },
+            {
+                question: "HEL dalam MIS 5.0 adalah singkatan dari...",
+                options: ["High Energy Learning", "Human Experience Logic", "Holistic Experience Learning", "Hybrid Education Lab"],
+                answer: 2
+            },
+            {
+                question: "4 Pilar HEL Framework yang BENAR adalah...",
+                options: ["HEAD-HAND-EXPERIENCE-HABIT", "HEAD-HAND-HEART-HABIT", "HEAD-HEART-HAND-HOPE", "KNOWLEDGE-SKILL-ATTITUDE-HABIT"],
+                answer: 1
+            },
+            {
+                question: "HEART dalam HEL Framework mewakili aspek...",
+                options: ["Health & Endurance", "Attitude, Perasaan, dan Empati", "Hardware & Equipment", "Hierarchy & Ethics"],
+                answer: 1
+            },
+            {
+                question: "Komponen utama ekosistem MIS 5.0 adalah...",
+                options: ["Smart Port, Smart Ship, AI Ocean, Human Operator", "Robot, AI, Cloud, Blockchain", "Internet, Mobile, Desktop, Server", "Ship, Port, Sea, Sky"],
+                answer: 0
+            },
+            {
+                question: "Tujuan utama MIS 5.0 adalah...",
+                options: ["Menggantikan pekerja manusia", "Memberdayakan manusia dengan teknologi", "Membuat semua otonom", "Mengurangi biaya operasional"],
+                answer: 1
+            },
+            {
+                question: "Referensi utama konsep Society 5.0 berasal dari...",
+                options: ["Amerika Serikat", "Jepang", "Singapura", "Eropa"],
+                answer: 1
+            },
+            {
+                question: "Berapa jumlah pelabuhan di Indonesia yang menjadi target digitalisasi MIS 5.0?",
+                options: ["100 pelabuhan", "150 pelabuhan", "246 pelabuhan", "300 pelabuhan"],
+                answer: 2
+            },
+            {
+                question: "Dalam HEL Framework, dimensi HAND merujuk pada...",
+                options: ["Knowledge & Theory", "Skills & Execution", "Real-world Application", "Continuous Learning"],
+                answer: 1
+            },
+            {
+                question: "EXPERIENCE dalam HEL Framework adalah...",
+                options: ["Pilar ke-5 framework", "Hasil integrasi HEAD-HAND-HEART-HABIT", "Sama dengan HABIT", "Hanya untuk pelaut senior"],
+                answer: 1
+            },
+            {
+                question: "Menurut research, berapa persen seafarers yang mengalami anxiety?",
+                options: ["5%", "10%", "17%", "25%"],
+                answer: 2
+            }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+        let xp = 0;
+
+        // Load Quiz
+        function loadQuiz() {
+            if (currentQ < quizData.length) {
+                const q = quizData[currentQ];
+                document.getElementById('question').textContent = q.question;
+                document.getElementById('opt1').textContent = q.options[0];
+                document.getElementById('opt2').textContent = q.options[1];
+                document.getElementById('opt3').textContent = q.options[2];
+                document.getElementById('opt4').textContent = q.options[3];
+
+                document.getElementById('opt1').onclick = () => checkAnswer(0);
+                document.getElementById('opt2').onclick = () => checkAnswer(1);
+                document.getElementById('opt3').onclick = () => checkAnswer(2);
+                document.getElementById('opt4').onclick = () => checkAnswer(3);
+            }
+        }
+
+        function checkAnswer(selected) {
+            if (selected === quizData[currentQ].answer) {
+                score++;
+                gainXP(100);
+            }
+            currentQ++;
+            if (currentQ < quizData.length) {
+                loadQuiz();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quizBox').innerHTML = `
+                <h2 style="color: var(--gold); margin-bottom: 1rem;">Quiz Selesai! 🎉</h2>
+                <p style="font-size: 1.5rem; margin: 1rem 0;">Skor Anda: <strong>${score}/${quizData.length}</strong></p>
+                <p style="margin: 1rem 0;">Level Maritime Intelligence Anda meningkat!</p>
+                <button class="btn-primary" onclick="resetQuiz()">Coba Lagi</button>
+            `;
+        }
+
+        function resetQuiz() {
+            currentQ = 0;
+            score = 0;
+            document.getElementById('quizBox').innerHTML = `
+                <h3 id="question">Loading...</h3>
+                <div class="options">
+                    <button class="option" id="opt1"></button>
+                    <button class="option" id="opt2"></button>
+                    <button class="option" id="opt3"></button>
+                    <button class="option" id="opt4"></button>
+                </div>
+            `;
+            loadQuiz();
+        }
+
+        // Gamification
+        function gainXP(value) {
+            xp += value;
+            document.getElementById('xp').textContent = xp;
+
+            if (xp >= 1000) {
+                document.getElementById('badge').textContent = '🥇';
+                document.getElementById('level').textContent = 'Maritime Architect';
+            } else if (xp >= 500) {
+                document.getElementById('badge').textContent = '🥈';
+                document.getElementById('level').textContent = 'Maritime Officer';
+            } else if (xp >= 200) {
+                document.getElementById('badge').textContent = '🏅';
+                document.getElementById('level').textContent = 'Maritime Explorer';
+            }
+        }
+
+        // Modal Functions
+        function openModal(title, desc, link) {
+            document.getElementById('modalTitle').textContent = title;
+            const modalDescElement = document.getElementById('modalDesc');
+            modalDescElement.innerHTML = desc;
+            
+            // Add link button if link is provided
+            if (link) {
+                modalDescElement.innerHTML += `<br><br><a href="${link}" target="_blank" style="display: inline-block; margin-top: 1rem; padding: 0.8rem 1.5rem; background: var(--gold); color: var(--navy); border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s;">🔗 Learn More (International Reference)</a>`;
+            }
+            
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function openHELModal(title, desc, link) {
+            document.getElementById('modalTitle').textContent = title;
+            const modalDescElement = document.getElementById('modalDesc');
+            modalDescElement.innerHTML = desc;
+            
+            // Add link button for HEL Framework
+            if (link) {
+                modalDescElement.innerHTML += `<br><br><a href="${link}" target="_blank" style="display: inline-block; margin-top: 1rem; padding: 0.8rem 1.5rem; background: #66B2FF; color: var(--navy); border-radius: 25px; text-decoration: none; font-weight: bold; transition: all 0.3s; box-shadow: 0 4px 10px rgba(102, 178, 255, 0.3);">🌐 International Framework Reference</a>`;
+            }
+            
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function openGamificationModal(title, desc) {
+            document.getElementById('modalTitle').textContent = title;
+            const modalDescElement = document.getElementById('modalDesc');
+            modalDescElement.innerHTML = desc;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function startLearning(moduleTitle, moduleContent) {
+            document.getElementById('modalTitle').textContent = moduleTitle;
+            document.getElementById('modalDesc').innerHTML = moduleContent + '<br><br><p style="margin-top: 1.5rem; padding: 1rem; background: rgba(255, 215, 0, 0.1); border-radius: 10px; border-left: 3px solid var(--gold);"><strong>🎓 Learning Progress:</strong> Modul ini akan segera tersedia dalam versi lengkap MIS 5.0 Learning Platform. Saat ini Anda dapat mengexplore overview dan mempersiapkan diri untuk pembelajaran mendalam.</p>';
+            document.getElementById('modal').style.display = 'block';
+            gainXP(50);
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal when clicking X or outside
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('modal');
+            const modalContent = document.querySelector('.modal-content');
+            
+            // Close if clicking outside modal content
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Smooth Scroll
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize
+        window.onload = function() {
+            loadQuiz();
+            
+            // Feedback Form Handler
+            document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('userName').value;
+                const email = document.getElementById('userEmail').value;
+                const category = document.getElementById('feedbackCategory').value;
+                const message = document.getElementById('feedbackMessage').value;
+                
+                // Create feedback object
+                const feedback = {
+                    name: name,
+                    email: email,
+                    category: category,
+                    message: message,
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Store in localStorage (untuk demo)
+                let feedbacks = JSON.parse(localStorage.getItem('mis50_feedbacks') || '[]');
+                feedbacks.push(feedback);
+                localStorage.setItem('mis50_feedbacks', JSON.stringify(feedbacks));
+                
+                // Show success message
+                document.getElementById('feedbackSuccess').style.display = 'block';
+                
+                // Reset form
+                document.getElementById('feedbackForm').reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('feedbackSuccess').style.display = 'none';
+                }, 5000);
+                
+                // Award XP for feedback
+                gainXP(30);
+                
+                console.log('Feedback stored:', feedback);
+                console.log('All feedbacks:', feedbacks);
+            });
+        }
+    </script>
+</body>
+</html>
